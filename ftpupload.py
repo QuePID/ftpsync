@@ -2,22 +2,19 @@ import glob, os, ftplib
 
 # Define connection variables
 
-FTP_HOST = "put_ftp_hostname_or_ip_here"
-FTP_USER = "put_ftp_username_here";
-FTP_PASS = "put_ftp_password_here"
+FTP_HOST = "ftp host"
+FTP_USER = "ftp username";
+FTP_PASS = "ftp password"
 
 # Fetch file list into list (array)
-os.chdir("put_path_to_local_folder_here")
-filelist = glob.glob("put_filenames_to_upload_with_wildcards_here")
-print(filelist)
-
-
+os.chdir("folder holding data files")
+filelist = glob.glob("sd*.csv")
 
 # connect to FTP Server
 ftp = ftplib.FTP(FTP_HOST, FTP_USER, FTP_PASS)
 ftp.encoding = "utf-8"
-ftp.cwd('put_path_on_ftp_to_place_uploads')
-ftp.dir()
+ftp.cwd('folder to upload files to')
+
 # upload to FTP Server
 mycount = 0
 
@@ -28,3 +25,4 @@ for i in filelist:
   print(file.name, " uploaded")
   ftp.dir()
   mycount += 1
+ftp.close
